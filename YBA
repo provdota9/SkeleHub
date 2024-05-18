@@ -20,6 +20,13 @@ local PS = game:GetService('PhysicsService')
 local player = game.Players.LocalPlayer
 local mouse = player:GetMouse()
 
+local vu = game:GetService("VirtualUser")
+player.Idled:connect(function()
+	vu:Button2Down(Vector2.new(0,0),workspace.CurrentCamera.CFrame)
+	wait(1)
+	vu:Button2Up(Vector2.new(0,0),workspace.CurrentCamera.CFrame)
+end)
+
 local DifferentColorsPoints = {Color3.fromRGB(1, 81, 255), Color3.fromRGB(255,0,0), Color3.fromRGB(0,255,0), Color3.fromRGB(255,255,0), Color3.fromRGB(255,0,255), Color3.fromRGB(0,255,255)}
 
 local FPS = 0
@@ -1249,7 +1256,7 @@ local function sellAllItems()
 		end
 	else
 		for _, item in pairs(allItems:GetChildren()) do
-			if item.Name ~= 'Lucky Arrow' and item.Name ~= 'Yellow Candy' and item.Name ~= 'Red Candy' and item.Name ~= 'Blue Candy' and item.Name ~= 'Lighter' and item.Name ~= "Jotaro's Disc"  and item.Name ~= "Koichi's Suitcase" then
+			if item.Name ~= 'Lucky Arrow' and item.Name ~= 'Umbrella' and item.Name ~= 'Yellow Candy' and item.Name ~= 'Red Candy' and item.Name ~= 'Blue Candy' and item.Name ~= 'Lighter' and item.Name ~= "Jotaro's Disc"  and item.Name ~= "Koichi's Suitcase" then
 				sellItem(item.Name)
 			end
 		end
@@ -1330,7 +1337,7 @@ local autoSellItemsCheckBox = MakeCheckbox(Farm_ItemsSubPage, 'Auto Sell All Ite
 
 local Shop_ArcadeSubPage = MakeNewSubPage('Shop', 'Left', 0.215, 0.08, 0.03, 0.07)
 MakeTitle(Shop_ArcadeSubPage, 'Items', 0.195)
-local ArcadeButton = MakeLargeButton(Shop_ArcadeSubPage, 'Roll Arcade', 0.165)
+local ArcadeButton = MakeLargeButton(Shop_ArcadeSubPage, 'Roll Arcade', 0.3)
 local autoArcadeCheckBox = MakeCheckbox(Shop_ArcadeSubPage, 'Auto Arcade', 0.165)
 
 print('1145')
@@ -1492,4 +1499,4 @@ task.spawn(function()
 
 	end)	
 end)
-print('Fully Loaded')
+print(1489)
