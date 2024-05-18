@@ -1087,7 +1087,7 @@ local function teleport(cf)
 	local character = player.Character or player.CharacterAdded:Wait()
 	local humanoidRootPart = character:FindFirstChild('HumanoidRootPart')
 
-	TS:Create(humanoidRootPart, TweenInfo.new(0.5), { ['CFrame'] = cf}):Play()
+	TS:Create(humanoidRootPart, TweenInfo.new(1), { ['CFrame'] = cf}):Play()
 end
 
 local function getItemsOnMap()
@@ -1118,10 +1118,9 @@ local function tpToItems()
 	for i, v in pairs(itemsOnMap) do
 		teleport(v)
 		print('12345')
-		wait(0.6)
-		i.ProximityPrompt.RemoteEvent:FireServer()
+		wait(1.1)
 		autoProximityPrompt(i.ProximityPrompt)
-		wait(2)
+		break
 	end
 end
 
@@ -1130,6 +1129,13 @@ local function sendKeyPress(keyCode)
     VirtualInputManager:SendKeyEvent(true, keyCode, false, game)
     wait() 
     VirtualInputManager:SendKeyEvent(false, keyCode, false, game)
+end
+
+local function autoTeleportItems()
+	while GetSave('Auto Farm Items') do
+		tpToItems()
+		wait(1.5)
+	end
 end
 
 print(1093)
@@ -1153,6 +1159,10 @@ local Main_MainSubPage = MakeNewSubPage('Main', 'Right', 0.603, 0.03, 0.01, 0.02
 MakeTitle(Main_MainSubPage, 'Main', 0.07)
 local testItemsButton = MakeLargeButton(Main_MainSubPage, 'Items test button', 0.103)
 
+local Farm_ItemsSubPage = MakeNewSubPage('Misc', 'Right', 0.344, 0.03, 0.02, 0.02)
+MakeTitle(Farm_ItemsSubPage, 'Items', 0.13)
+local autoFarmItems = MakeCheckbox(Farm_ItemsSubPage, 'Auto Farm Items', 0.095)
+
 local Misc_OtherSubPage = MakeNewSubPage('Misc', 'Right', 0.344, 0.03, 0.02, 0.02)
 MakeTitle(Misc_OtherSubPage, 'Misc', 0.13)
 makeUHBigger = MakeCheckbox(Misc_OtherSubPage, 'Large Window', 0.095)
@@ -1162,6 +1172,7 @@ MakeTitle(Other_MiscSubPage, 'Other', 0.16)
 local RenderingOff = MakeCheckbox(Other_MiscSubPage, 'Disable 3d Rendering', 0.13)
 
 -------------------------Check Box Func-----------------------------------------
+checkBoxFunc(autoFarmItems, autoTeleportItems)
 
 ------------------Button Func-------------------------------------
 
