@@ -1126,7 +1126,7 @@ local function tpToItems()
 		print('1234')
 		wait(0.6)
 		i.ProximityPrompt.RemoteEvent:FireServer()
-		autoProximityPrompterProm(i.ProximityPrompt)
+		autoProximityPrompt(i.ProximityPrompt)
 		wait(2)
 	end
 end
