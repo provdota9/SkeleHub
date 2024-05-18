@@ -1127,12 +1127,23 @@ local function teleport(cf)
 	local character = player.Character or player.CharacterAdded:Wait()
 	local humanoidRootPart = character:FindFirstChild('HumanoidRootPart')
 
-	local tween = TS:Create(humanoidRootPart, TweenInfo.new(2), { ['CFrame'] = cf})
-	noclip()
-	tween:Play()
-	tween.Completed:Connect(function()
+	local magnitude = (humanoidRootPart.CFrame - cf).Magnitude
+
+	if magnitude < 300 then
+		local tween = TS:Create(humanoidRootPart, TweenInfo.new(1), { ['CFrame'] = cf})
 		noclip()
-	end)
+		tween:Play()
+		tween.Completed:Connect(function()
+			noclip()
+		end)
+	else
+		local tween = TS:Create(humanoidRootPart, TweenInfo.new(4), { ['CFrame'] = cf})
+		noclip()
+		tween:Play()
+		tween.Completed:Connect(function()
+			noclip()
+		end)
+	end
 end
 
 local function getItemsOnMap()
