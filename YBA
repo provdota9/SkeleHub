@@ -1155,6 +1155,27 @@ local function autoTeleportItems()
 	end
 end
 
+local function sellItem(item)
+	local allItems = player.Backpack
+	local character = player.Character or player.CharacterAdded:Wait()
+	local humanoid = character:FindFirstChild('Humanoid')
+	if not humanoid then return end
+
+	humanoid:EquipTool(allItems[item])
+
+	local args = {
+		[1] = "EndDialogue",
+		[2] = {
+			["NPC"] = "Merchant",
+			["Option"] = "Option2",
+			["Dialogue"] = "Dialogue5"
+		}
+	}
+	
+	game:GetService("Players").LocalPlayer.Character.RemoteEvent:FireServer(unpack(args))
+end
+
+
 print(1093)
 
 ------------------------------------------
@@ -1213,7 +1234,7 @@ makeUHBigger.MouseButton1Click:Connect(function()
 end)
 
 testItemsButton.MouseButton1Click:Connect(function()
-	tpToItems()
+	sellItem('Rokakaka')
 end)
 
 if GetSave(makeUHBigger.Name) then MainFrame.Size = UDim2.new(1,0,1,0) MainFrame.Position = UDim2.new(0.614, 0, 0, 0) additionalFrame.Size = UDim2.new(0.390, 0, 0.124, 0) makeUHBigger.Parent.BackgroundColor3 = checkBoxColors[true] end
