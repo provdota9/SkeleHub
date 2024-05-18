@@ -1157,6 +1157,14 @@ local function autoProximityPrompt(ProximityPrompt)
 	end
 end
 
+local function deleteArcadeUI()
+	local arcadeUI = player.PlayerGui:FindFirstChild('RollingItem')
+
+	if not arcadeUI then return end
+
+	arcadeUI:Destroy()
+end
+
 local function tpToItems()
 	local itemsOnMap = getItemsOnMap()
 
@@ -1210,7 +1218,7 @@ local function sellAllItems()
 
 	if GetSave('Auto Arcade') then
 		for _, item in pairs(allItems:GetChildren()) do
-			if item.Name ~= 'Lucky Arrow' and item.Name ~= 'Gold Coin' and item.Name ~= 'Yellow Candy' and item.Name ~= 'Red Candy' and item.Name ~= 'Blue Candy' and item.Name ~= 'Lighter' and item.Name ~= "Jotaro's Disc"  and item.Name ~= "Koichi's Suitcase" then
+			if item.Name ~= 'Lucky Arrow' and item.Name ~= 'Pluck' and item.Name ~= 'Boxing Gloves' and item.Name ~= 'Gold Coin' and item.Name ~= 'Yellow Candy' and item.Name ~= 'Red Candy' and item.Name ~= 'Blue Candy' and item.Name ~= 'Lighter' and item.Name ~= "Jotaro's Disc"  and item.Name ~= "Koichi's Suitcase" then
 				sellItem(item.Name)
 			end
 		end
@@ -1255,6 +1263,10 @@ local function rollArcade()
 		}
 		
 		game:GetService("Players").LocalPlayer.Character.RemoteEvent:FireServer(unpack(args))
+
+		wait(0.2)
+
+		deleteArcadeUI
 	end
 end
 
@@ -1293,7 +1305,7 @@ local autoSellItemsCheckBox = MakeCheckbox(Farm_ItemsSubPage, 'Auto Sell All Ite
 
 local Shop_ArcadeSubPage = MakeNewSubPage('Shop', 'Left', 0.215, 0.08, 0.03, 0.07)
 MakeTitle(Shop_ArcadeSubPage, 'Items', 0.195)
-local ArcadeButton = MakeLargeButton(Shop_ArcadeSubPage, 'Roll Arcade', 0.103)
+local ArcadeButton = MakeLargeButton(Shop_ArcadeSubPage, 'Roll Arcade', 0.165)
 local autoArcadeCheckBox = MakeCheckbox(Shop_ArcadeSubPage, 'Auto Arcade', 0.165)
 
 print('1145')
