@@ -1104,7 +1104,7 @@ local function teleport(cf)
 	local character = player.Character or player.CharacterAdded:Wait()
 	local humanoidRootPart = character:FindFirstChild('HumanoidRootPart')
 
-	TS:Create(humanoidRootPart, TweenInfo.new(1), { ['CFrame'] = cf}):Play()
+	TS:Create(humanoidRootPart, TweenInfo.new(2), { ['CFrame'] = cf}):Play()
 end
 
 local function getItemsOnMap()
@@ -1181,7 +1181,7 @@ local function sellAllItems()
 	local allItems = player.Backpack
 
 	for _, item in pairs(allItems:GetChildren()) do
-		if item.Name ~= 'Lucky Arrow' then
+		if item.Name ~= 'Lucky Arrow' and item.Name ~= 'Yellow Candy' and item.Name ~= 'Red Candy' and item.Name ~= 'Blue Candy' and item.Name ~= 'Lighter' and item.Name ~= "Jotaro's Disc"  and item.Name ~= "Koichi's Suitcase" then
 			sellItem(item.Name)
 		end
 	end
