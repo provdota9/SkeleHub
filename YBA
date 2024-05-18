@@ -1135,7 +1135,7 @@ local function tpToItems()
 	for i, v in pairs(itemsOnMap) do
 		teleport(v)
 		print('12345')
-		wait(1.1)
+		wait(2.1)
 		autoProximityPrompt(i.ProximityPrompt)
 		break
 	end
@@ -1180,9 +1180,17 @@ end
 local function sellAllItems()
 	local allItems = player.Backpack
 
-	for _, item in pairs(allItems:GetChildren()) do
-		if item.Name ~= 'Lucky Arrow' and item.Name ~= 'Yellow Candy' and item.Name ~= 'Red Candy' and item.Name ~= 'Blue Candy' and item.Name ~= 'Lighter' and item.Name ~= "Jotaro's Disc"  and item.Name ~= "Koichi's Suitcase" then
-			sellItem(item.Name)
+	if GetSave('Auto Arcade') then
+		for _, item in pairs(allItems:GetChildren()) do
+			if item.Name ~= 'Lucky Arrow' and item.Name ~= 'Gold Coin' and item.Name ~= 'Yellow Candy' and item.Name ~= 'Red Candy' and item.Name ~= 'Blue Candy' and item.Name ~= 'Lighter' and item.Name ~= "Jotaro's Disc"  and item.Name ~= "Koichi's Suitcase" then
+				sellItem(item.Name)
+			end
+		end
+	else
+		for _, item in pairs(allItems:GetChildren()) do
+			if item.Name ~= 'Lucky Arrow' and item.Name ~= 'Yellow Candy' and item.Name ~= 'Red Candy' and item.Name ~= 'Blue Candy' and item.Name ~= 'Lighter' and item.Name ~= "Jotaro's Disc"  and item.Name ~= "Koichi's Suitcase" then
+				sellItem(item.Name)
+			end
 		end
 	end
 end
@@ -1190,6 +1198,41 @@ end
 local function autoSellItems()
 	while GetSave('Auto Sell All Items') do
 		sellAllItems()
+		wait(1)
+	end
+end
+
+local function JesusDialogue()
+	local args = {
+		[1] = "PromptTriggered",
+		[2] = game:GetService("ReplicatedStorage").NewDialogue.Jesus
+	}
+	
+	game:GetService("Players").LocalPlayer.Character.RemoteEvent:FireServer(unpack(args))
+end
+
+local function rollArcade()
+	local allPlayerItems = player.Backpack
+	local playerMoney = player:WaitForChild('PlayerStats'):FindFirstChild('Money')
+	if not playerMoney then return end
+
+	if playerMoney.Value >= 1500 and allPlayerItems:FindFirstChild('Gold Coin') then
+		local args = {
+			[1] = "EndDialogue",
+			[2] = {
+				["NPC"] = "Item Machine",
+				["Option"] = "Option1",
+				["Dialogue"] = "Dialogue1"
+			}
+		}
+		
+		game:GetService("Players").LocalPlayer.Character.RemoteEvent:FireServer(unpack(args))
+	end
+end
+
+local function autoRollArcade()
+	while GetSave('Auto Arcade') do
+		rollArcade()
 		wait(1)
 	end
 end
@@ -1212,12 +1255,18 @@ Pages['Main'].BottomLine.Visible = true
 ---------------------------------------------------------------------
 local Main_MainSubPage = MakeNewSubPage('Main', 'Right', 0.603, 0.03, 0.01, 0.02)
 MakeTitle(Main_MainSubPage, 'Main', 0.07)
+local JesusSpeakBTN = MakeLargeButton(Main_MainSubPage, 'Speak with Jesus', 0.103)
 local testItemsButton = MakeLargeButton(Main_MainSubPage, 'Items test button', 0.103)
 
 local Farm_ItemsSubPage = MakeNewSubPage('Farm', 'Right', 0.215, 0.08, 0.03, 0.07)
 MakeTitle(Farm_ItemsSubPage, 'Items', 0.195)
 local autoItemsCheckBox = MakeCheckbox(Farm_ItemsSubPage, 'Auto Farm Items', 0.165)
 local autoSellItemsCheckBox = MakeCheckbox(Farm_ItemsSubPage, 'Auto Sell All Items', 0.165)
+
+local Shop_ArcadeSubPage = MakeNewSubPage('Shop', 'Left', 0.215, 0.08, 0.03, 0.07)
+MakeTitle(Shop_ArcadeSubPage, 'Items', 0.195)
+local ArcadeButton = MakeLargeButton(Main_MainSubPage, 'Roll Arcade', 0.103)
+local autoArcadeCheckBox = MakeCheckbox(Shop_ArcadeSubPage, 'Auto Arcade', 0.165)
 
 print('1145')
 
@@ -1232,6 +1281,7 @@ local RenderingOff = MakeCheckbox(Other_MiscSubPage, 'Disable 3d Rendering', 0.1
 -------------------------Check Box Func-----------------------------------------
 checkBoxFunc(autoItemsCheckBox, autoTeleportItems)
 checkBoxFunc(autoSellItemsCheckBox, autoSellItems)
+checkBoxFunc(autoArcadeCheckBox, autoRollArcade)
 ------------------Button Func-------------------------------------
 
 makeUHBigger.MouseButton1Click:Connect(function()
@@ -1254,6 +1304,14 @@ end)
 
 testItemsButton.MouseButton1Click:Connect(function()
 	sellItem('Rokakaka')
+end)
+
+JesusSpeakBTN.MouseButton1Click:Connect(function()
+	JesusDialogue()
+end)
+
+ArcadeButton.MouseButton1Click:Connect(function()
+	rollArcade()
 end)
 
 if GetSave(makeUHBigger.Name) then MainFrame.Size = UDim2.new(1,0,1,0) MainFrame.Position = UDim2.new(0.614, 0, 0, 0) additionalFrame.Size = UDim2.new(0.390, 0, 0.124, 0) makeUHBigger.Parent.BackgroundColor3 = checkBoxColors[true] end
