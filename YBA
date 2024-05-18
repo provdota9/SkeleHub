@@ -1162,7 +1162,7 @@ local function tpToItems()
 
 	for i, v in pairs(itemsOnMap) do
 		teleport(v)
-		print('12345')
+		print(i)
 		wait(2.1)
 		autoProximityPrompt(i.ProximityPrompt)
 		break
