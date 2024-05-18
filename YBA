@@ -35,8 +35,6 @@ local DefaultFiles = {
 
 		['Discord Url'] = '';
 		['Discord UserID'] = '';
-		['Selected Macro'] = '';
-		['Step Delay'] = 0.7;
 
 	};
 
@@ -1159,9 +1157,9 @@ local Main_MainSubPage = MakeNewSubPage('Main', 'Right', 0.603, 0.03, 0.01, 0.02
 MakeTitle(Main_MainSubPage, 'Main', 0.07)
 local testItemsButton = MakeLargeButton(Main_MainSubPage, 'Items test button', 0.103)
 
-local Farm_ItemsSubPage = MakeNewSubPage('Misc', 'Right', 0.344, 0.03, 0.02, 0.02)
+local Farm_ItemsSubPage = MakeNewSubPage('Farm', 'Right', 0.344, 0.03, 0.02, 0.02)
 MakeTitle(Farm_ItemsSubPage, 'Items', 0.13)
-local autoFarmItems = MakeCheckbox(Farm_ItemsSubPage, 'Auto Farm Items', 0.095)
+local autoFarmItems = MakeCheckbox(Other_MiscSubPage, 'Auto Farm Items', 0.13)
 
 local Misc_OtherSubPage = MakeNewSubPage('Misc', 'Right', 0.344, 0.03, 0.02, 0.02)
 MakeTitle(Misc_OtherSubPage, 'Misc', 0.13)
