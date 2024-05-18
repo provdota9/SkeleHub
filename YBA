@@ -1123,11 +1123,17 @@ local function checkBoxFunc (checkBox, checkBoxF, checkBoxFuncValue, CustomKey)
 
 end
 
+local function GetDistanceOfCFrames(cf,cf2) --
+    local axis,theta = cf:ToAxisAngle()
+    local axis2,theta2 = cf2:ToAxisAngle()
+    return (cf.Position-cf2.Position).Magnitude,((axis*theta)-(axis2*theta2)).Magnitude
+end
+
 local function teleport(cf)
 	local character = player.Character or player.CharacterAdded:Wait()
 	local humanoidRootPart = character:FindFirstChild('HumanoidRootPart')
 
-	local magnitude = (humanoidRootPart.CFrame - cf).Magnitude
+	local magnitude = GetDistanceOfCFrames(humanoidRootPart.CFrame, cf)
 
 	if magnitude < 300 then
 		local tween = TS:Create(humanoidRootPart, TweenInfo.new(1), { ['CFrame'] = cf})
@@ -1486,4 +1492,4 @@ task.spawn(function()
 
 	end)	
 end)
-print(1489)
+print('Fully Loaded')
