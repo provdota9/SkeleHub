@@ -1171,7 +1171,6 @@ pageShown.Visible = true
 Pages['Main'].BottomLine.Visible = true
 
 ---------------------------------------------------------------------
-
 local Main_MainSubPage = MakeNewSubPage('Main', 'Right', 0.603, 0.03, 0.01, 0.02)
 MakeTitle(Main_MainSubPage, 'Main', 0.07)
 local testItemsButton = MakeLargeButton(Main_MainSubPage, 'Items test button', 0.103)
