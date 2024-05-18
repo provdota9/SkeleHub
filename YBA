@@ -1087,7 +1087,6 @@ local function teleport(cf)
 	local character = player.Character or player.CharacterAdded:Wait()
 	local humanoidRootPart = character:FindFirstChild('HumanoidRootPart')
 
-	print(humanoidRootPart.Position)
 	TS:Create(humanoidRootPart, TweenInfo.new(0.5), { ['CFrame'] = cf}):Play()
 end
 
@@ -1104,14 +1103,31 @@ local function getItemsOnMap()
 	return allItemsOnMap
 end
 
+local function autoProximityPrompt(ProximityPrompt)
+	local Duration = ProximityPrompt.HoldDuration
+	print(Duration)
+
+	for i = 1, 1 do
+		ProximityPrompt:InputHoldBegin()
+
+		local RunService = game:GetService("RunService")
+        local Start = time()
+        repeat
+        	RunService.Heartbeat:Wait(0.1)
+        until time() - Start > HoldDuration
+	end
+end
+
 local function tpToItems()
 	local itemsOnMap = getItemsOnMap()
 
 	for i, v in pairs(itemsOnMap) do
 		teleport(v)
 		print('1234')
-		wait(1.5)
+		wait(0.6)
 		i.ProximityPrompt.RemoteEvent:FireServer()
+		autoProximityPrompterProm(i.ProximityPrompt)
+		wait(2)
 	end
 end
 
