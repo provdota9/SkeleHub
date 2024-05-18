@@ -1097,7 +1097,7 @@ local function getItemsOnMap()
 
 	for i, v in pairs(itemsFolder:GetChildren()) do
 		if v:IsA('Model') then
-			allItemsOnMap[v] = v.PrimaryPart.CFrame
+			allItemsOnMap[v.Name] = v.PrimaryPart.CFrame
 		end
 	end
 
@@ -1109,6 +1109,7 @@ local function tpToItems()
 
 	for i, v in pairs(itemsOnMap) do
 		teleport(v)
+		print('123')
 		wait(1.5)
 		workspace.Item_Spawns.Items[i].ProximityPrompt.RemoteEvent:FireServer()
 	end
