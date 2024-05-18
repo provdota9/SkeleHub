@@ -1088,7 +1088,7 @@ local function teleport(position)
 	local humanoidRootPart = character:FindFirstChild('HumanoidRootPart')
 
 	print(humanoidRootPart.Position)
-	print(position)
+	humanoidRootPart.Position = position
 end
 
 local function getItemsOnMap()
