@@ -1109,12 +1109,6 @@ local function autoProximityPrompt(ProximityPrompt)
 
 	for i = 1, 1 do
 		ProximityPrompt:InputHoldBegin()
-
-		local RunService = game:GetService("RunService")
-        local Start = time()
-        repeat
-        	RunService.Heartbeat:Wait(0.1)
-        until time() - Start > HoldDuration
 	end
 end
 
