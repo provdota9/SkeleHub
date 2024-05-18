@@ -1213,6 +1213,14 @@ local function sellItem(item)
 	game:GetService("Players").LocalPlayer.Character.RemoteEvent:FireServer(unpack(args))
 end
 
+local function deleteArcadeUI()
+	local arcadeUI = player.PlayerGui:FindFirstChild('RollingItem')
+
+	if not arcadeUI then return end
+
+	arcadeUI:Destroy()
+end
+
 local function sellAllItems()
 	local allItems = player.Backpack
 
@@ -1266,7 +1274,7 @@ local function rollArcade()
 
 		wait(0.2)
 
-		deleteArcadeUI
+		deleteArcadeUI()
 	end
 end
 
@@ -1467,4 +1475,4 @@ task.spawn(function()
 
 	end)	
 end)
-print(1256)
+print(1488)
