@@ -1079,6 +1079,29 @@ local function MakeDoubleButton (subPage, ButtonTXT, ScaleY)
 end
 
 ---------------------Script Functions--------------------------------
+local Noclip = nil
+local Clip = nil
+
+function noclip()
+	Clip = false
+	local function Nocl()
+		if Clip == false and game.Players.LocalPlayer.Character ~= nil then
+			for _,v in pairs(game.Players.LocalPlayer.Character:GetDescendants()) do
+				if v:IsA('BasePart') and v.CanCollide and v.Name ~= floatName then
+					v.CanCollide = false
+				end
+			end
+		end
+		wait(0.21) -- basic optimization
+	end
+	Noclip = game:GetService('RunService').Stepped:Connect(Nocl)
+end
+
+function clip()
+	if Noclip then Noclip:Disconnect() end
+	Clip = true
+end
+
 local function checkBoxFunc (checkBox, checkBoxF, checkBoxFuncValue, CustomKey)
 	local keySave = CustomKey or checkBox.Name
 
@@ -1104,7 +1127,12 @@ local function teleport(cf)
 	local character = player.Character or player.CharacterAdded:Wait()
 	local humanoidRootPart = character:FindFirstChild('HumanoidRootPart')
 
-	TS:Create(humanoidRootPart, TweenInfo.new(2), { ['CFrame'] = cf}):Play()
+	local tween = TS:Create(humanoidRootPart, TweenInfo.new(2), { ['CFrame'] = cf})
+	noclip()
+	tween:Play()
+	tween.Completed:Connect(function()
+		noclip()
+	end)
 end
 
 local function getItemsOnMap()
@@ -1265,7 +1293,7 @@ local autoSellItemsCheckBox = MakeCheckbox(Farm_ItemsSubPage, 'Auto Sell All Ite
 
 local Shop_ArcadeSubPage = MakeNewSubPage('Shop', 'Left', 0.215, 0.08, 0.03, 0.07)
 MakeTitle(Shop_ArcadeSubPage, 'Items', 0.195)
-local ArcadeButton = MakeLargeButton(Main_MainSubPage, 'Roll Arcade', 0.103)
+local ArcadeButton = MakeLargeButton(Shop_ArcadeSubPage, 'Roll Arcade', 0.103)
 local autoArcadeCheckBox = MakeCheckbox(Shop_ArcadeSubPage, 'Auto Arcade', 0.165)
 
 print('1145')
