@@ -1493,10 +1493,10 @@ task.spawn(function()
 	pcall(function()
 
 		if queue_on_teleport then
-			local SkeleHubSCRIPT = 'print("Hello World")'
+			local SkeleHubSCRIPT = 'loadstring(game:HttpGet("https://raw.githubusercontent.com/menshaha/skeleHub/main/YBA"))()'
 			queue_on_teleport(SkeleHubSCRIPT)
 		end
 
 	end)	
 end)
-print(1489)
+print('Loaded')
