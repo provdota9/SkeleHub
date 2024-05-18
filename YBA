@@ -1123,7 +1123,7 @@ local function tpToItems()
 
 	for i, v in pairs(itemsOnMap) do
 		teleport(v)
-		print('1234')
+		print('12345')
 		wait(0.6)
 		i.ProximityPrompt.RemoteEvent:FireServer()
 		autoProximityPrompt(i.ProximityPrompt)
