@@ -1083,12 +1083,12 @@ end
 
 ---------------------Script Functions--------------------------------
 
-local function teleport(position)
+local function teleport(cf)
 	local character = player.Character or player.CharacterAdded:Wait()
 	local humanoidRootPart = character:FindFirstChild('HumanoidRootPart')
 
 	print(humanoidRootPart.Position)
-	TS:Create(humanoidRootPart, TweenInfo.new(3), { Position = position}):Play()
+	TS:Create(humanoidRootPart, TweenInfo.new(1), { ['CFrame'] = cf}):Play()
 end
 
 local function getItemsOnMap()
@@ -1097,7 +1097,7 @@ local function getItemsOnMap()
 
 	for i, v in pairs(itemsFolder:GetChildren()) do
 		if v:IsA('Model') then
-			allItemsOnMap[v.Name] = v.PrimaryPart.Position
+			allItemsOnMap[v.Name] = v.PrimaryPart.CFrame
 		end
 	end
 
