@@ -26,12 +26,11 @@ local FPS = 0
 
 --------------- Files
 makefolder("Skele Hub")
-makefolder('Skele Hub\\YBA')
 
 
 local DefaultFiles = {
 
-	['Skele Hub\\Settings_YBA' .. player.Name] = {
+	['Skele Hub\\Settings_YBA_' .. player.Name] = {
 
 		['Discord Url'] = '';
 		['Discord UserID'] = '';
@@ -69,18 +68,18 @@ for name, value in pairs(DefaultFiles) do -- SET DEFAULT VALUES
 	if not pcall(function() readfile(name) end) then writefile(name, HttpService:JSONEncode(value)) end 
 end
 
-local Settings = HttpService:JSONDecode(readfile('Skele Hub\\Settings_YBA' .. player.Name))  
+local Settings = HttpService:JSONDecode(readfile('Skele Hub\\Settings_YBA_' .. player.Name))  
 
 local function Save (valueName, newValue)
 	Settings[valueName] = newValue
-	writefile('Skele Hub\\Settings_YBA' .. player.Name, HttpService:JSONEncode(Settings))
+	writefile('Skele Hub\\Settings_YBA_' .. player.Name, HttpService:JSONEncode(Settings))
 end
 
 local function GetSave (valueName)
 	local value = Settings[valueName]
 	if value == nil then
-		if DefaultFiles['Skele Hub\\Settings_YBA' .. player.Name][valueName] ~= nil then
-			Save(valueName, DefaultFiles['Skele Hub\\Settings_YBA' .. player.Name][valueName])
+		if DefaultFiles['Skele Hub\\Settings_YBA_' .. player.Name][valueName] ~= nil then
+			Save(valueName, DefaultFiles['Skele Hub\\Settings_YBA_' .. player.Name][valueName])
 		else
 			Save(valueName, false)
 		end
@@ -1160,6 +1159,8 @@ local testItemsButton = MakeLargeButton(Main_MainSubPage, 'Items test button', 0
 local Farm_ItemsSubPage = MakeNewSubPage('Farm', 'Right', 0.215, 0.08, 0.03, 0.07)
 MakeTitle(Farm_ItemsSubPage, 'Items', 0.195)
 local autoItemsCheckBox = MakeCheckbox(Farm_ItemsSubPage, 'Auto Farm Items', 0.165)
+
+print('1145')
 
 local Misc_OtherSubPage = MakeNewSubPage('Misc', 'Right', 0.344, 0.03, 0.02, 0.02)
 MakeTitle(Misc_OtherSubPage, 'Misc', 0.13)
