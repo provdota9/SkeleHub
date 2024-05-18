@@ -1273,8 +1273,6 @@ local function rollArcade()
 		game:GetService("Players").LocalPlayer.Character.RemoteEvent:FireServer(unpack(args))
 
 		wait(0.2)
-
-		deleteArcadeUI()
 	end
 end
 
