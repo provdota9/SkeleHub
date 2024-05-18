@@ -1088,7 +1088,7 @@ local function teleport(position)
 	local humanoidRootPart = character:FindFirstChild('HumanoidRootPart')
 
 	print(humanoidRootPart.Position)
-	TS:Create(humanoidRootPart, TweenInfo.new(1), { Position = position}):Play()
+	TS:Create(humanoidRootPart, TweenInfo.new(3), { Position = position}):Play()
 end
 
 local function getItemsOnMap()
