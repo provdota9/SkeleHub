@@ -1216,7 +1216,9 @@ end
 local function deleteArcadeUI()
 	local arcadeUI = player.PlayerGui:FindFirstChild('RollingItem')
 
-	arcadeUI:Destroy()
+	if arcadeUI then
+		arcadeUI:Destroy()
+	end
 end
 
 local function sellAllItems()
@@ -1473,4 +1475,4 @@ task.spawn(function()
 
 	end)	
 end)
-print(1456)
+print(1256)
