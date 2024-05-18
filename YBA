@@ -1216,8 +1216,6 @@ end
 local function deleteArcadeUI()
 	local arcadeUI = player.PlayerGui:FindFirstChild('RollingItem')
 
-	if not arcadeUI then return end
-
 	arcadeUI:Destroy()
 end
 
@@ -1273,6 +1271,8 @@ local function rollArcade()
 		game:GetService("Players").LocalPlayer.Character.RemoteEvent:FireServer(unpack(args))
 
 		wait(0.2)
+
+		deleteArcadeUI()
 	end
 end
 
@@ -1473,4 +1473,4 @@ task.spawn(function()
 
 	end)	
 end)
-print(1488)
+print(1256)
