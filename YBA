@@ -1088,7 +1088,7 @@ local function teleport(cf)
 	local humanoidRootPart = character:FindFirstChild('HumanoidRootPart')
 
 	print(humanoidRootPart.Position)
-	TS:Create(humanoidRootPart, TweenInfo.new(1), { ['CFrame'] = cf}):Play()
+	TS:Create(humanoidRootPart, TweenInfo.new(0.5), { ['CFrame'] = cf}):Play()
 end
 
 local function getItemsOnMap()
@@ -1097,7 +1097,7 @@ local function getItemsOnMap()
 
 	for i, v in pairs(itemsFolder:GetChildren()) do
 		if v:IsA('Model') then
-			allItemsOnMap[v.Name] = v.PrimaryPart.CFrame
+			allItemsOnMap[v] = v.PrimaryPart.CFrame
 		end
 	end
 
@@ -1109,7 +1109,8 @@ local function tpToItems()
 
 	for i, v in pairs(itemsOnMap) do
 		teleport(v)
-		wait(2)
+		wait(1.5)
+		workspace.Item_Spawns.Items[i].ProximityPrompt.RemoteEvent:FireServer()
 	end
 end
 
