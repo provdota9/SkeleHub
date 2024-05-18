@@ -1157,9 +1157,9 @@ local Main_MainSubPage = MakeNewSubPage('Main', 'Right', 0.603, 0.03, 0.01, 0.02
 MakeTitle(Main_MainSubPage, 'Main', 0.07)
 local testItemsButton = MakeLargeButton(Main_MainSubPage, 'Items test button', 0.103)
 
-local Farm_ItemsSubPage = MakeNewSubPage('Farm', 'Right', 0.603, 0.03, 0.01, 0.02)
-MakeTitle(Farm_ItemsSubPage, 'Items', 0.07)
-local autoFarmItems = MakeCheckbox(Farm_ItemsSubPage, 'Auto Farm Items', 0.056)
+local Farm_ItemsSubPage = MakeNewSubPage('Farm', 'Right', 0.215, 0.08, 0.03, 0.07)
+MakeTitle(Farm_ItemsSubPage, 'Items', 0.195)
+local autoItemsCheckBox = MakeCheckbox(Farm_ItemsSubPage, 'Auto Farm Items', 0.165)
 
 local Misc_OtherSubPage = MakeNewSubPage('Misc', 'Right', 0.344, 0.03, 0.02, 0.02)
 MakeTitle(Misc_OtherSubPage, 'Misc', 0.13)
@@ -1170,7 +1170,7 @@ MakeTitle(Other_MiscSubPage, 'Other', 0.16)
 local RenderingOff = MakeCheckbox(Other_MiscSubPage, 'Disable 3d Rendering', 0.13)
 
 -------------------------Check Box Func-----------------------------------------
-checkBoxFunc(autoFarmItems, autoTeleportItems)
+checkBoxFunc(autoItemsCheckBox, autoTeleportItems)
 
 ------------------Button Func-------------------------------------
 
