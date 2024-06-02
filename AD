@@ -1138,11 +1138,20 @@ end
 local function hideNameFunc()
     local nameTag = character.Head.PlayerBillboard
     local playerName = nameTag.PlayerName
-    if playerName ~= 'Skele Hub' then
-        playerName.Text = 'Skele Hub'
-    else
-        playerName.Text = player.Name
-    end
+    playerName.Text = 'Skele Hub'
+end
+
+function HideTabFunc (enabled)
+
+	local userNameNew = 'Skele Hub'
+	if not enabled then userNameNew = player.DisplayName end
+
+	pcall(function()
+		local PlayerNameTabFrame1 = game.CoreGui:WaitForChild('PlayerList'):WaitForChild('PlayerListMaster'):WaitForChild('OffsetFrame'):WaitForChild('PlayerScrollList'):WaitForChild('SizeOffsetFrame')
+		local PlayerNameTabFrame2 = PlayerNameTabFrame1:WaitForChild('ScrollingFrameContainer'):WaitForChild('ScrollingFrameClippingFrame'):WaitForChild('ScollingFrame'):WaitForChild('OffsetUndoFrame'):WaitForChild('p_' .. player.UserId, 5)
+		PlayerNameTabFrame2:WaitForChild('ChildrenFrame'):WaitForChild('NameFrame'):WaitForChild('BGFrame'):WaitForChild('OverlayFrame'):WaitForChild('PlayerName'):WaitForChild('PlayerName').Text = userNameNew
+	end)
+
 end
 -----------------------------------------------------
 
@@ -1257,6 +1266,75 @@ makeUHBigger.MouseButton1Click:Connect(function()
 	end
 
 end)
+
+HideTab.MouseButton1Click:Connect(function()
+
+	local enabled = not GetSave(HideTab.Name)
+	Save(HideTab.Name, enabled)
+
+	HideTab.Parent.BackgroundColor3 = checkBoxColors[enabled]
+
+	pcall(function() HideTabFunc(enabled) end)
+
+end)
+if GetSave(HideTab.Name) then task.spawn(function() pcall(function() HideTabFunc(true) end) end) HideTab.Parent.BackgroundColor3 = checkBoxColors[true] end
+
+bodyColorsNames = {'HeadColor3', 'LeftArmColor3', 'RightArmColor3', 'LeftLegColor3', 'RightLegColor3', 'TorsoColor3'}
+oldBodyColors = {}
+oldCosmetics = {}
+function FakeOutfitFunc (enabled)
+
+	if enabled then
+
+		local bodyColors = player.Character:WaitForChild('Body Colors')
+
+		for _, bodyColorName in ipairs(bodyColorsNames) do
+			oldBodyColors[bodyColorName] = bodyColors[bodyColorName]
+			bodyColors[bodyColorName] = Color3.fromRGB(math.random(1,255), math.random(1,255), math.random(1,255))
+		end
+
+		task.spawn(function()
+
+			while GetSave(FakeOutfit.Name) do
+				player.Character:WaitForChild('Head'):WaitForChild('face').Transparency = 1
+				for _, itemInCharacter in ipairs(player.Character:GetChildren()) do
+					if not itemInCharacter:IsA('Accessory') and not itemInCharacter:IsA('Pants') and not itemInCharacter:IsA('Shirt') then continue end
+					table.insert(oldCosmetics, itemInCharacter)
+					itemInCharacter.Parent = RS
+				end
+				task.wait()
+			end
+
+		end)
+
+
+	else
+		player.Character:WaitForChild('Head'):WaitForChild('face').Transparency = 0
+
+		local bodyColors = player.Character:WaitForChild('Body Colors')
+
+		for bodyColorName, OLDclr in pairs(oldBodyColors) do
+			bodyColors[bodyColorName] = OLDclr
+		end
+
+		for _, oldcosmetic in ipairs(oldCosmetics) do
+			oldcosmetic.Parent = player.Character
+		end
+	end
+
+end
+
+FakeOutfit.MouseButton1Click:Connect(function()
+
+	local enabled = not GetSave(FakeOutfit.Name)
+	Save(FakeOutfit.Name, enabled)
+
+	FakeOutfit.Parent.BackgroundColor3 = checkBoxColors[enabled]
+
+	pcall(function() FakeOutfitFunc(enabled) end)
+
+end)
+if GetSave(FakeOutfit.Name) then repeat task.wait() until player.Character and player.Character:FindFirstChild('_pets_folder') pcall(function() FakeOutfitFunc(true) end) FakeOutfit.Parent.BackgroundColor3 = checkBoxColors[true] end
 
 hideAdditionalFrame.MouseButton1Click:Connect(function()
 	local enabled = not GetSave(hideAdditionalFrame.Name)
