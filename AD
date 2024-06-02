@@ -21,12 +21,12 @@ local StartTime = os.time()
 local GameFinished
 
 makefolder("Skele Hub")
-makefolder('Skele Hub\\Anime Vanguards')
-makefolder('Skele Hub\\Anime Vanguards\\Macro')
+makefolder('Skele Hub\\Anime Defenders')
+makefolder('Skele Hub\\Anime Defenders\\Macro')
 
 local DefaultFiles = {
 
-	['Skele Hub\\Anime Vanguards\\Settings_' .. player.Name] = {
+	['Skele Hub\\Anime Defenders\\Settings_' .. player.Name] = {
 
 		['FPS_LIMIT'] = 60;
 		['Selected Macro'] = '';
@@ -65,18 +65,18 @@ for name, value in pairs(DefaultFiles) do -- SET DEFAULT VALUES
 	if not pcall(function() readfile(name) end) then writefile(name, HttpService:JSONEncode(value)) end 
 end
 
-local Settings = HttpService:JSONDecode(readfile('Skele Hub\\Anime Vanguards\\Settings_' .. player.Name)) 
+local Settings = HttpService:JSONDecode(readfile('Skele Hub\\Anime Defenders\\Settings_' .. player.Name)) 
 
 local function Save (valueName, newValue)
 	Settings[valueName] = newValue
-	writefile('Skele Hub\\Anime Vanguards\\Settings_' .. player.Name, HttpService:JSONEncode(Settings))
+	writefile('Skele Hub\\Anime Defenders\\Settings_' .. player.Name, HttpService:JSONEncode(Settings))
 end
 
 local function GetSave (valueName)
 	local value = Settings[valueName]
 	if value == nil then
-		if DefaultFiles['Skele Hub\\Anime Vanguards\\Settings_' .. player.Name][valueName] ~= nil then
-			Save(valueName, DefaultFiles['Skele Hub\\Anime Vanguards\\Settings_' .. player.Name][valueName])
+		if DefaultFiles['Skele Hub\\Anime Defenders\\Settings_' .. player.Name][valueName] ~= nil then
+			Save(valueName, DefaultFiles['Skele Hub\\Anime Defenders\\Settings_' .. player.Name][valueName])
 		else
 			Save(valueName, false)
 		end
