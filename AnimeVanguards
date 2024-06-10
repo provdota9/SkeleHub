@@ -1260,7 +1260,7 @@ blackScreen.MouseButton1Click:Connect(function()
 
 end)
 
-if GetSave('Disable 3d Rendering') then Rend3dOffFunc(true) RenderingOff.Parent.BackgroundColor3 = checkBoxColors[true] end
+if GetSave('Black Screen') then Rend3dOffFunc(true) RenderingOff.Parent.BackgroundColor3 = checkBoxColors[true] end
 
 autoHideUIOnExecute.MouseButton1Click:Connect(function()
 	local enabled = not GetSave(autoHideUIOnExecute.Name)
