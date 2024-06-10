@@ -1245,6 +1245,9 @@ local function Rend3dOffFunc (enabled)
 		RunS:Set3dRenderingEnabled(false)
 	else
 		screenGui:Destroy()
+		if player.PlayerGui:FindFirstChild('BlackScreen') then
+			player.PlayerGui.BlackScreen:Destroy()
+		end
 		RunS:Set3dRenderingEnabled(true)
 	end
 end
