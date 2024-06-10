@@ -1277,6 +1277,9 @@ local function fpsBoostFunc(enabled)
 			elseif v:IsA('Texture') then
 				FpsBoostOldValue[v] = v.Texture
 				v.Texture = ''
+			elseif v:IsA('Part') then
+				FpsBoostOldValue[v] = v.Material
+				v.Material = Enum.Material.Plastic
 			end
 		end
 		fpsBoostConnection = game.DescendantAdded:Connect(function(descendant)
@@ -1286,6 +1289,9 @@ local function fpsBoostFunc(enabled)
 			elseif descendant:IsA('Texture') then
 				FpsBoostOldValue[descendant] = descendant.Texture
 				descendant.Texture = ''
+			elseif descendant:IsA('Part') then
+				FpsBoostOldValue[descendant] = descendant.Material
+				descendant.Material = Enum.Material.Plastic
 			end
 		end)
 	else
@@ -1296,6 +1302,9 @@ local function fpsBoostFunc(enabled)
 				FpsBoostOldValue[v] = nil
 			elseif v:IsA('ParticleEmitter') or v:IsA('Beam') or v:IsA('SurfaceGui') then
 				v.Enabled = FpsBoostOldValue[v]
+				FpsBoostOldValue[v] = nil
+			elseif v:IsA('Part') then
+				v.Material = Enum.Material[FpsBoostOldValue[v]]
 				FpsBoostOldValue[v] = nil
 			end
 		end
