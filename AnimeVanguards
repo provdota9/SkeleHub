@@ -1322,6 +1322,7 @@ local function fpsBoostFunc(enabled)
 		end
 	end
 end
+print('123')
 
 fpsBoost.MouseButton1Click:Connect(function()
 	local enabled = not GetSave(fpsBoost.Name)
@@ -1332,7 +1333,13 @@ fpsBoost.MouseButton1Click:Connect(function()
 	fpsBoostFunc(enabled)
 end)
 
-if GetSave(fpsBoost.Name) then fpsBoostFunc(true) fpsBoost.Parent.BackgroundColor3 = checkBoxColors[true] end
+print('1234')
+
+if GetSave(fpsBoost.Name) then
+	wait(1)
+	fpsBoostFunc(true)
+	fpsBoost.Parent.BackgroundColor3 = checkBoxColors[true]
+end
 
 autoHideUIOnExecute.MouseButton1Click:Connect(function()
 	local enabled = not GetSave(autoHideUIOnExecute.Name)
