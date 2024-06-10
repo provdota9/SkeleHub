@@ -1229,6 +1229,11 @@ makeUHBigger.MouseButton1Click:Connect(function()
 
 end)
 
+autoHideUIOnExecute.MouseButton1Click:Connect(function()
+	local enabled = not GetSave(autoHideUIOnExecute.Name)
+	Save(autoHideUIOnExecute.Name, enabled)
+end)
+
 hideAdditionalFrame.MouseButton1Click:Connect(function()
 	local enabled = not GetSave(hideAdditionalFrame.Name)
 	Save(hideAdditionalFrame.Name, enabled)
