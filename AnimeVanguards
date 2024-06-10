@@ -1245,9 +1245,8 @@ local function Rend3dOffFunc (enabled)
 		RunS:Set3dRenderingEnabled(false)
 	else
 		screenGui:Destroy()
-		if player.PlayerGui:FindFirstChild('BlackScreen') then
-			player.PlayerGui.BlackScreen:Destroy()
-		end
+		wait(0.05)
+		player.PlayerGui.BlackScreen:Destroy()
 		RunS:Set3dRenderingEnabled(true)
 	end
 end
@@ -1270,7 +1269,6 @@ autoHideUIOnExecute.MouseButton1Click:Connect(function()
 	Save(autoHideUIOnExecute.Name, enabled)
 
 	autoHideUIOnExecute.Parent.BackgroundColor3 = checkBoxColors[enabled]
-	print(enabled)
 end)
 
 hideAdditionalFrame.MouseButton1Click:Connect(function()
