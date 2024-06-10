@@ -1236,6 +1236,7 @@ autoHideUIOnExecute.MouseButton1Click:Connect(function()
 	Save(autoHideUIOnExecute.Name, enabled)
 
 	autoHideUIOnExecute.Parent.BackgroundColor3 = checkBoxColors[enabled]
+	print(enabled)
 end)
 
 hideAdditionalFrame.MouseButton1Click:Connect(function()
