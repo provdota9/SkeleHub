@@ -1139,6 +1139,7 @@ local TPToLobby = MakeLargeButton(Main_MainSubPage, 'Teleport To Lobby', 0.103)
 
 local OtherFeatures_MiscSubPage = MakeNewSubPage('Misc', 'Right', 0.344, 0.03, 0.02, 0.02)
 MakeTitle(OtherFeatures_MiscSubPage, 'Other Features', 0.13)
+local fpsBoost = MakeCheckbox(OtherFeatures_MiscSubPage, 'Fps Boost', 0.095)
 local blackScreen = MakeCheckbox(OtherFeatures_MiscSubPage, 'Black Screen', 0.095)
 local autoHideUIOnExecute = MakeCheckbox(OtherFeatures_MiscSubPage, 'Auto Hide UI on Execute', 0.095)
 
@@ -1263,6 +1264,54 @@ blackScreen.MouseButton1Click:Connect(function()
 end)
 
 if GetSave('Black Screen') then Rend3dOffFunc(true) RenderingOff.Parent.BackgroundColor3 = checkBoxColors[true] end
+
+local fpsBoostConnection = nil
+local FpsBoostOldValue = {}
+
+local function fpsBoostFunc(enabled)
+	if enabled then
+		for _, v in pairs(workspace:GetDescendants()) do
+			if v:IsA('ParticleEmitter') or v:IsA('Beam') or v:IsA('SurfaceGui') then
+				FpsBoostOldValue[v] = v.Enabled
+				v.Enabled = false
+			elseif v:IsA('Texture') then
+				FpsBoostOldValue[v] = v.Texture
+				v.Texture = ''
+			end
+		end
+		fpsBoostConnection = game.DescendantAdded:Connect(function(descendant)
+			if descendant:IsA('ParticleEmitter') or descendant:IsA('Beam') or descendant:IsA('SurfaceGui') then
+				FpsBoostOldValue[descendant] = descendant.Enabled
+				descendant.Enabled = false
+			elseif descendant:IsA('Texture') then
+				FpsBoostOldValue[descendant] = descendant.Texture
+				descendant.Texture = ''
+			end
+		end)
+	else
+		fpsBoostConnection:Disconnect()
+		for _, v in pairs(game:GetDescendants()) do
+			if v:IsA('Texture') then
+				v.Texture = FpsBoostOldValue[v]
+				FpsBoostOldValue[v] = nil
+			elseif v:IsA('ParticleEmitter') or v:IsA('Beam') or v:IsA('SurfaceGui') then
+				v.Enabled = FpsBoostOldValue[v]
+				FpsBoostOldValue[v] = nil
+			end
+		end
+	end
+end
+
+fpsBoost.MouseButton1Click:Connect(function()
+	local enabled = not GetSave(fpsBoost.Name)
+	Save(fpsBoost.Name, enabled)
+
+	fpsBoost.Parent.BackgroundColor3 = checkBoxColors[enabled]
+
+	fpsBoostFunc(enabled)
+end)
+
+if GetSave(fpsBoost.Name) then fpsBoostFunc(true) fpsBoost.Parent.BackgroundColor3 = checkBoxColors[true] end
 
 autoHideUIOnExecute.MouseButton1Click:Connect(function()
 	local enabled = not GetSave(autoHideUIOnExecute.Name)
