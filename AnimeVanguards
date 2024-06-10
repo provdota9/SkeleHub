@@ -1139,7 +1139,7 @@ local TPToLobby = MakeLargeButton(Main_MainSubPage, 'Teleport To Lobby', 0.103)
 
 local OtherFeatures_MiscSubPage = MakeNewSubPage('Misc', 'Right', 0.344, 0.03, 0.02, 0.02)
 MakeTitle(OtherFeatures_MiscSubPage, 'Misc', 0.13)
-autoHideUIOnExecute = MakeCheckbox(OtherFeatures_MiscSubPage, 'Auto Hide UI on Execute', 0.095)
+local autoHideUIOnExecute = MakeCheckbox(OtherFeatures_MiscSubPage, 'Auto Hide UI on Execute', 0.095)
 
 local Misc_MiscSubPage = MakeNewSubPage('Misc', 'Right', 0.344, 0.03, 0.02, 0.02)
 MakeTitle(Misc_MiscSubPage, 'Misc', 0.13)
