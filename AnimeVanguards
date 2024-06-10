@@ -1138,7 +1138,8 @@ MakeTitle(Main_MainSubPage, 'Main', 0.07)
 local TPToLobby = MakeLargeButton(Main_MainSubPage, 'Teleport To Lobby', 0.103)
 
 local OtherFeatures_MiscSubPage = MakeNewSubPage('Misc', 'Right', 0.344, 0.03, 0.02, 0.02)
-MakeTitle(OtherFeatures_MiscSubPage, 'Misc', 0.13)
+MakeTitle(OtherFeatures_MiscSubPage, 'Other Features', 0.13)
+local blackScreen = MakeCheckbox(OtherFeatures_MiscSubPage, 'Black Screen', 0.095)
 local autoHideUIOnExecute = MakeCheckbox(OtherFeatures_MiscSubPage, 'Auto Hide UI on Execute', 0.095)
 
 local Misc_MiscSubPage = MakeNewSubPage('Misc', 'Right', 0.344, 0.03, 0.02, 0.02)
@@ -1230,6 +1231,36 @@ makeUHBigger.MouseButton1Click:Connect(function()
 end)
 
 if GetSave(makeUHBigger.Name) then MainFrame.Size = UDim2.new(1,0,1,0) MainFrame.Position = UDim2.new(0.614, 0, 0, 0) additionalFrame.Size = UDim2.new(0.390, 0, 0.124, 0) makeUHBigger.Parent.BackgroundColor3 = checkBoxColors[true] end
+
+local function Rend3dOffFunc (enabled)
+	local screenGui = Instance.new('ScreenGui', player.PlayerGui)
+	screenGui.Name = 'BlackScreen'
+	screenGui.IgnoreGuiInset = true
+	screenGui.DisplayOrder = 999
+	
+	if enabled then
+		local frame = Instance.new('Frame', screenGui)
+		frame.Size = UDim2.new(1,0,1,0)
+		frame.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+		RunS:Set3dRenderingEnabled(false)
+	else
+		screenGui:Destroy()
+		RunS:Set3dRenderingEnabled(true)
+	end
+end
+
+blackScreen.MouseButton1Click:Connect(function()
+
+	local enabled = not GetSave(blackScreen.Name)
+	Save(blackScreen.Name, enabled)
+
+	blackScreen.Parent.BackgroundColor3 = checkBoxColors[enabled]
+
+	Rend3dOffFunc(enabled)
+
+end)
+
+if GetSave('Disable 3d Rendering') then Rend3dOffFunc(true) RenderingOff.Parent.BackgroundColor3 = checkBoxColors[true] end
 
 autoHideUIOnExecute.MouseButton1Click:Connect(function()
 	local enabled = not GetSave(autoHideUIOnExecute.Name)
