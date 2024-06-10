@@ -1229,6 +1229,8 @@ makeUHBigger.MouseButton1Click:Connect(function()
 
 end)
 
+if GetSave(makeUHBigger.Name) then MainFrame.Size = UDim2.new(1,0,1,0) MainFrame.Position = UDim2.new(0.614, 0, 0, 0) additionalFrame.Size = UDim2.new(0.390, 0, 0.124, 0) makeUHBigger.Parent.BackgroundColor3 = checkBoxColors[true] end
+
 autoHideUIOnExecute.MouseButton1Click:Connect(function()
 	local enabled = not GetSave(autoHideUIOnExecute.Name)
 	Save(autoHideUIOnExecute.Name, enabled)
