@@ -1347,5 +1347,5 @@ MiuTeleport.MouseButton1Click:Connect(function()
 end)
 
 RoseTeleport.MouseButton1Click:Connect(function()
-    teleport(player.Character, CFrame.new(7702.42578, 542.468994, 8194.29297, 0.618430018, 0, 0.785839856, 0, 1, 0, -0.785839856, 0, 0.618430018), 60)
+    teleport(player.Character, CFrame.new(7702.42578, 542.468994, 8194.29297, 0.618430018, 0, 0.785839856, 0, 1, 0, -0.785839856, 0, 0.618430018), 200)
 end)
