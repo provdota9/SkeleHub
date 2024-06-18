@@ -1343,7 +1343,7 @@ local function teleport(character, position, timetp)
 end
 
 MiuTeleport.MouseButton1Click:Connect(function()
-    
+    teleport(player.Character, CFrame.new(12655.9121, 141.843811, 2917.43896, -0.0440620184, 0, 0.999028802, 0, 1, 0, -0.999028802, 0, -0.0440620184), 200)
 end)
 
 RoseTeleport.MouseButton1Click:Connect(function()
